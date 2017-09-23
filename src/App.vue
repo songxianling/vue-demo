@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <v-header></v-header>
-    <div class="header">首次初始化vue-elemo</div>
-    <div class="tab">tab</div>
+    <div class="tab">
+      <div class="tab-item">商品</div>
+      <div class="tab-item">评论</div>
+      <div class="tab-item">商家</div>
+    </div>
     <div class="footer">footer</div>
   </div>
 </template>
@@ -11,7 +14,7 @@
 import header from './components/header/header';
 
 export default {
-  // components 注册一个组件
+  // components 注册一个组件header为关键词不允许随意使用 ; 用v-header
   components: {
     'v-header': header
   }
@@ -21,6 +24,15 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import "./common/stylus/mixin.styl"
+  #app
+    .tab
+      display: flex
+      width: 100%
+      height: 40px
+      line-height: 40px 
+      .tab-item
+        flex: 1 
+        text-align :center
 
   
 </style>
