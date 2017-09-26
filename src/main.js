@@ -34,6 +34,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  mode: 'history', // history
   linkActiveClass: 'active', // 指定新的变量值
   routes
 });
