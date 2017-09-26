@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-header></v-header>
-    <div class="tab">
+    <div class="tab border-1px">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
       </div>
@@ -20,6 +20,16 @@
 import header from './components/header/header';
 
 export default {
+  data() {
+    return {
+      seller: {}
+    };
+  },
+  created() {
+    this.$api.apiCommunicationGet('/api/seller', {}, res => {
+      // this.seller
+    });
+  },
   // components 注册一个组件header为关键词不允许随意使用 ; 用v-header
   components: {
     'v-header': header
@@ -36,9 +46,17 @@ export default {
       width: 100%
       height: 40px
       line-height: 40px 
+      border-1px(rgba(7,17,27,0.1))
       .tab-item
         flex: 1 
         text-align :center
+        & > a
+          // 此处的display block是为了让点击选项周围的时候也能切换;而不是只能点击文字区域
+          display :block 
+          font-size :14px
+          color :rgb(77,85,93)
+          &.active
+            color :rgb(240,20,20)
 
   
 </style>
