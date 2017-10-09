@@ -54,6 +54,7 @@ export default {
   .header
     position relative
     color :#fff
+    overflow hidden
     background rgba(7,17,27,.5)
     .content-wrapper
       position relative
@@ -138,7 +139,7 @@ export default {
         display inline-block
         width 22px
         height 12px
-        margin-top 7px
+        margin-top 8px
         bg-image('bulletin')
         background-size 100% 100%
         background-repeat no-repeat
