@@ -36,11 +36,20 @@
     <!-- 详情弹层 -->
     <div class="detail" v-show="detailShow">
       <!-- 内容层 -->
-      <div class="detail-wapper clearfix">
+      <div class="detail-wrapper clearfix">
         <!-- 真正承载内容 -->
         <div class="detail-main">
           <h1 class="name">{{seller.name}}</h1>
-          <star :size="48" :score="seller.score"></star>
+          <!-- 星星评分 -->
+          <div class="star-wrapper">
+            <star :size="48" :score="seller.score"></star>
+          </div>
+          <!-- 优惠信息 -->
+          <div class="title">
+            <div class="line"></div>
+            <div class="text">优惠信息</div>
+            <div class="line"></div>
+          </div>
         </div>
       </div>
       <!-- 关闭按钮 -->
@@ -203,7 +212,7 @@ export default {
       height 100%
       overflow auto
       background rgba(7,17,27,.8)
-      .detail-wapper
+      .detail-wrapper
         width 100%
         min-height 100%
         .detail-main
@@ -214,6 +223,22 @@ export default {
             text-align center
             font-size 16px
             font-weight 700
+          .star-wrapper
+            margin-top 18px
+            padding 2px 0
+            text-align center
+          .title
+            display flex
+            width 80%
+            margin 30px auto 24px auto
+            .line
+              flex 1
+              position relative
+              top -6px
+              border-bottom 1px solid rgba(255,255,255,0.2)
+            .text
+              padding 0 12px
+              font-size 14px
       .detail-close
         position relative
         width 32px
