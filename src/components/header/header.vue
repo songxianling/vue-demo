@@ -39,8 +39,8 @@
       <div class="detail-wapper clearfix">
         <!-- 真正承载内容 -->
         <div class="detail-main">
-          <p>{{seller.bulletin}}</p>
-
+          <h1 class="name">{{seller.name}}</h1>
+          <star :size="48" :score="seller.score"></star>
         </div>
       </div>
       <!-- 关闭按钮 -->
@@ -52,6 +52,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+import star from 'components/star/star';
+
 export default {
   props: {
     seller: {
@@ -71,8 +73,11 @@ export default {
       this.detailShow = !this.detailShow;
     },
     closeShow() {
-       this.detailShow = !this.detailShow;
+      this.detailShow = !this.detailShow;
     }
+  },
+  components: {
+    star
   }
 };
 </script>
@@ -199,10 +204,16 @@ export default {
       overflow auto
       background rgba(7,17,27,.8)
       .detail-wapper
+        width 100%
         min-height 100%
         .detail-main
           margin-top 64px
           padding-bottom 64px
+          .name
+            line-height 16px
+            text-align center
+            font-size 16px
+            font-weight 700
       .detail-close
         position relative
         width 32px
