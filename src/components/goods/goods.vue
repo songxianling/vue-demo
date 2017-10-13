@@ -3,7 +3,7 @@
     <!-- 左侧菜单 -->
     <div class="menu-wrapper" ref="menuWrapper">
       <ul>
-        <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}">
+        <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}" @click="selectMenu(index,$event)">
           <span class="text">
             <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>
             {{item.name}}
@@ -85,8 +85,20 @@ export default {
     }
   },
   methods: {
+    // 左侧menu点击函数
+    selectMenu(index, event) {
+      // event._constructed自定义派发的事件为true ; 浏览器默认的时候为false
+      if (event._constructed) {
+        let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
+        let el = foodList[index];
+        this.foodsScroll.scrollToElement(el, 300);
+      }
+    },
     _initScroll() {
-      this.menuScroll = new BScroll(this.$refs.menuWrapper, {});
+      // BScroll监听了touch事件 ; 传一个click：true
+      this.menuScroll = new BScroll(this.$refs.menuWrapper, {
+        click: true
+      });
       this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
         probeType: 3
       });
@@ -95,6 +107,7 @@ export default {
         this.scrollY = Math.abs(Math.round(pos.y));
       });
     },
+    // 计算右侧商品每个节点的高度集合
     _calculateHight() {
       let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
       let height = 0;
@@ -104,8 +117,8 @@ export default {
         height += item.clientHeight;
         this.listHeight.push(height);
       }
-      console.log(this.listHeight);
     }
+
   }
 };
 </script>
