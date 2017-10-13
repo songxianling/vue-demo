@@ -31,7 +31,6 @@ export default {
     this.$api.apiCommunicationGet('/api/seller', res => {
       if (res.errno === ERR_OK) {
         this.seller = res.data;
-        console.log(this.seller);
       };
     });
   },
