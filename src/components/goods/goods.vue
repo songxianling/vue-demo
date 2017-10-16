@@ -32,6 +32,10 @@
                   <span class="now">￥{{food.price}}</span>
                   <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
+                <!-- 购买操作 -->
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food="food"></cartcontrol>
+                </div>
               </div>
             </li>
           </ul>
@@ -39,13 +43,14 @@
       </ul>
     </div>
     <!-- 购物车 -->
-    <shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :selectFoods="selectFoods"></shop-cart>
+    <shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :select-foods="selectFoods"></shop-cart>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import BScroll from 'better-scroll';
 import shopCart from '../shopcart/shopcart';
+import cartcontrol from '../cartcontrol/cartcontrol';
 const ERR_OK = 0;
 export default {
   props: {
@@ -86,19 +91,14 @@ export default {
       return 0;
     },
     selectFoods() {
-        let foods = [
-          {
-            price: 10,
-            count: 2
-          }
-        ];
-        // this.goods.forEach((good) => {
-        //   good.foods.forEach((food) => {
-        //     if (food.count) {
-        //       foods.push(food);
-        //     }
-        //   });
-        // });
+        let foods = [];
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+            if (food.count) {
+              foods.push(food);
+            }
+          });
+        });
         return foods;
       }
   },
@@ -118,7 +118,8 @@ export default {
         click: true
       });
       this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
-        probeType: 3
+        probeType: 3,
+        click: true
       });
 
       this.foodsScroll.on('scroll', (pos) => {
@@ -139,7 +140,8 @@ export default {
 
   },
   components: {
-    shopCart
+    shopCart,
+    cartcontrol
   }
 };
 </script>
@@ -289,6 +291,12 @@ export default {
             font-size: 10px;
             color: rgb(147, 153, 159);
           }
+        }
+        .cartcontrol-wrapper{
+          position absolute
+          right 0
+          bottom 12px
+
         }
       }
     }
