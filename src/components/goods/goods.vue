@@ -39,7 +39,7 @@
       </ul>
     </div>
     <!-- 购物车 -->
-    <shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shop-cart>
+    <shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :selectFoods="selectFoods"></shop-cart>
   </div>
 </template>
 
@@ -84,7 +84,23 @@ export default {
         }
       }
       return 0;
-    }
+    },
+    selectFoods() {
+        let foods = [
+          {
+            price: 10,
+            count: 2
+          }
+        ];
+        // this.goods.forEach((good) => {
+        //   good.foods.forEach((food) => {
+        //     if (food.count) {
+        //       foods.push(food);
+        //     }
+        //   });
+        // });
+        return foods;
+      }
   },
   methods: {
     // 左侧menu点击函数
