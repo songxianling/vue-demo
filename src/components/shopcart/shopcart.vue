@@ -25,6 +25,16 @@
           {{payDesc}}
         </div>
       </div>
+      <!-- 小球的容器 -->
+      <div class="ball-container">
+        <div v-for="ball in balls">
+          <transition name="drop" @before-enter="beforeDrop" @enter="dropping" @after-enter="afterDrop">
+            <div class="ball" v-show="ball.show">
+              <div class="inner inner-hook"></div>
+            </div>
+          </transition>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -47,6 +57,18 @@ export default {
       type: Number,
       defalut: 0
     }
+  },
+  data() {
+    return {
+      balls: [
+        { show: false },
+        { show: false },
+        { show: false },
+        { show: false },
+        { show: false }
+      ],
+      dropBalls: []
+    };
   },
   computed: {
     // 价格计算
@@ -85,6 +107,58 @@ export default {
         return 'enough';
       }
     }
+  },
+  methods: {
+    // 找到当前点击的位置
+    drop(el) {
+      for (let i = 0; i < this.balls.length; i++) {
+        let ball = this.balls[i];
+        if (!ball.show) {
+          // 单独设置当前项的值
+          ball.show = true;
+          ball.el = el;
+          this.dropBalls.push(ball);
+          return;
+        }
+      }
+    },
+    // 动画相关
+    beforeDrop(el) {
+      let count = this.balls.length;
+      while (count--) {
+        let ball = this.balls[count];
+        if (ball.show) {
+          let rect = ball.el.getBoundingClientRect();
+          let x = rect.left - 32;
+          let y = -(window.innerHeight - rect.top - 22);
+          el.style.display = '';
+          el.style.webkitTransform = `translate3d(0,${y}px,0)`;
+          el.style.transform = `translate3d(0,${y}px,0)`;
+          let inner = el.getElementsByClassName('inner-hook')[0];
+          inner.style.webKitTransform = `translate3d(${x}px,0,0)`;
+          inner.style.transform = `translate3d(${x}px,0,0)`;
+        }
+      }
+    },
+    dropping(el) {
+      // 主动触发浏览器重绘
+      /* eslint-disable no-unused-vars */
+      let rf = el.offsetHeight;
+      this.$nextTick(() => {
+        el.style.webKitTransform = 'translate3d(0,0,0)';
+        el.style.transform = 'translate3d(0,0,0)';
+        let inner = el.getElementsByClassName('inner-hook')[0];
+        inner.style.webKitTransform = 'translate3d(0,0,0)';
+        inner.style.transform = 'translate3d(0,0,0)';
+      });
+    },
+    afterDrop(el) {
+      let ball = this.dropBalls.shift();
+      if (ball) {
+        ball.show = false;
+        el.style.display = 'none';
+      }
+    }
   }
 
 };
@@ -97,7 +171,7 @@ export default {
   position: fixed;
   left: 0;
   bottom: 0;
-  z-index: 101;
+  z-index: 50;
   width: 100%;
   height: 48px;
 
@@ -206,6 +280,24 @@ export default {
         &.enough {
           background: #00b43c;
           color: #fff;
+        }
+      }
+    }
+
+    .ball-container {
+      .ball {
+        position: fixed;
+        left: 32px;
+        bottom: 22px;
+        z-index: 200;
+        transition: all 0.4s;
+
+        .inner {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: rgb(0, 160, 220);
+          transition: all 0.4s linear;
         }
       }
     }

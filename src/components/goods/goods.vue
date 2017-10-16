@@ -34,7 +34,7 @@
                 </div>
                 <!-- 购买操作 -->
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
+                  <cartcontrol @add="add" :food="food"></cartcontrol>
                 </div>
               </div>
             </li>
@@ -43,13 +43,13 @@
       </ul>
     </div>
     <!-- 购物车 -->
-    <shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :select-foods="selectFoods"></shop-cart>
+    <shopcart ref="shopcart" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :select-foods="selectFoods"></shopcart>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import BScroll from 'better-scroll';
-import shopCart from '../shopcart/shopcart';
+import shopcart from '../shopcart/shopcart';
 import cartcontrol from '../cartcontrol/cartcontrol';
 const ERR_OK = 0;
 export default {
@@ -91,16 +91,16 @@ export default {
       return 0;
     },
     selectFoods() {
-        let foods = [];
-        this.goods.forEach((good) => {
-          good.foods.forEach((food) => {
-            if (food.count) {
-              foods.push(food);
-            }
-          });
+      let foods = [];
+      this.goods.forEach((good) => {
+        good.foods.forEach((food) => {
+          if (food.count) {
+            foods.push(food);
+          }
         });
-        return foods;
-      }
+      });
+      return foods;
+    }
   },
   methods: {
     // 左侧menu点击函数
@@ -136,13 +136,22 @@ export default {
         height += item.clientHeight;
         this.listHeight.push(height);
       }
+    },
+    // 调用shopCart
+    _drop(target) {
+
+      this.$refs.shopcart.drop(target);
+    },
+    add(target) {
+      this._drop(target);
     }
 
   },
   components: {
-    shopCart,
+    shopcart,
     cartcontrol
   }
+
 };
 </script>
 
@@ -292,11 +301,11 @@ export default {
             color: rgb(147, 153, 159);
           }
         }
-        .cartcontrol-wrapper{
-          position absolute
-          right 0
-          bottom 12px
 
+        .cartcontrol-wrapper {
+          position: absolute;
+          right: 0;
+          bottom: 12px;
         }
       }
     }

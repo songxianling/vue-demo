@@ -32,6 +32,7 @@ export default {
             } else {
                 this.food.count++;
             }
+            this.$emit('add', event.target);
         },
         // 减少
         decreaseCart(event) {
@@ -61,6 +62,7 @@ export default {
             opacity: 1;
             transform: translate3d(0, 0, 0);
         }
+
         .inner {
             display: inline-block;
             line-height: 24px;
@@ -73,6 +75,7 @@ export default {
         &.move-enter, &.move-leave-to {
             opacity: 0;
             transform: translate3d(24px, 0, 0);
+
             .inner {
                 transform: rotate(180deg);
             }
