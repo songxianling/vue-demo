@@ -10,22 +10,37 @@
           </div>
         </div>
         <!-- 买的数据信息 -->
-        <!-- 价格 -->
+        <!-- 商品总价 -->
         <div class="price">
-
+          ￥
         </div>
         <!-- 描述 -->
-        <div class="desc"></div>
+        <div class="desc">
+          另需配送费 ￥{{deliveryPrice}}元
+        </div>
       </div>
       <!-- 内容右 -->
-      <div class="content-right"></div>
+      <div class="content-right">
+        <div class="pay">
+          ￥{{minPrice}}元起送
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 export default{
-
+  props: {
+    deliveryPrice: {
+      type: Number,
+      defalut: 0
+    },
+    minPrice: {
+      type: Number,
+      defalut: 0
+    }
+  }
 };
 </script>
 
@@ -42,6 +57,7 @@ export default{
     .content
       display flex
       background #141d27
+      color rgba(255,255,255,.4)
       .content-left
         flex 1
         font-size 0
@@ -69,11 +85,30 @@ export default{
               color #80858a
         .price
           display inline-block
+          vertical-align top
+          line-height 24px
+          margin-top 12px
+          padding-right 12px
+          border-right 1px solid rgba(255,255,255,.1)
+          box-sizing border-box
+          font-size 16px
+          font-weight 700
         .desc  
-          display inline-block        
+          display inline-block  
+          margin 12px 0 0 12px
+          vertical-align top
+          line-height 24px 
+          font-size 10px 
       .content-right
         flex 0 0 105px
         width 105px
+        .pay
+          height 48px
+          line-height 48px
+          text-align center
+          font-size 12px
+          font-weight 700
+          background #2b333b
 
   
 </style>

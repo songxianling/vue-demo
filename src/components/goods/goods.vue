@@ -39,7 +39,7 @@
       </ul>
     </div>
     <!-- 购物车 -->
-    <shop-cart></shop-cart>
+    <shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shop-cart>
   </div>
 </template>
 
