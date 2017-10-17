@@ -1,8 +1,8 @@
 {
-  "name": "sell",
-  "version": "1.0.0",
-  "description": "sell app",
-  "author": "ustbhuangyi <280309453@qq.com>",
+  "name": "ele",
+  "version": "1.0.1",
+  "description": "ele app",
+  "author": "宋现令 <360198419@qq.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",

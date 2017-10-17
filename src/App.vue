@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="ele">
     <v-header :seller="seller"></v-header>
     <div class="tab border-1px">
       <div class="tab-item">
@@ -44,7 +44,7 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import "./common/stylus/mixin.styl"
-  #app
+  #ele
     .tab
       display: flex
       width: 100%

@@ -41,7 +41,7 @@ const router = new VueRouter({
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  el: '#ele',
   router,
   render: h => h(App)
 });
