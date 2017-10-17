@@ -139,8 +139,10 @@ export default {
     },
     // 调用shopCart
     _drop(target) {
-
-      this.$refs.shopcart.drop(target);
+      // 为了优化体验 ; 异步执行下落动画
+      this.$nextTick(() => {
+        this.$refs.shopcart.drop(target);
+      });
     },
     add(target) {
       this._drop(target);
